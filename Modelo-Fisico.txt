@@ -1,0 +1,66 @@
+Create table Carro (
+renavan serial,
+Disponibilidade boolean,
+Cor varchar,
+AnoFabrica int,
+ModeloDoCarro varchar,
+CapacidadeDePassageiro int,
+ValorDaDiaria float,
+TipoDeCambio varchar,
+Placa varchar,
+primary key (renavan)
+);
+
+Create table Funcionario (
+cod serial,
+RG int,
+CPF int,
+Email varchar,
+Nome varchar,
+Telefone int,
+primary key (cod)
+);
+
+Create table Endereco (
+codEnd serial,
+NumeroCasa int,
+Cep int,
+Bairro varchar,
+Rua varchar,
+Cidade varchar,
+primary key(codEnd)
+);
+
+CREATE TABLE Cliente (
+    cpf bigint,
+    Telefone int,
+    Rg int,
+    Nome varchar(255),
+    Email varchar(255),
+    Cnh varchar(255),
+    codEnd int,
+    PRIMARY KEY (cpf),
+    FOREIGN KEY (codEnd) REFERENCES Endereco (codEnd) 
+        ON UPDATE CASCADE 
+        ON DELETE CASCADE
+);
+
+CREATE TABLE Aluguel (
+    idAluguel int,
+    renavan bigint,  
+    cod int,       
+    cpf bigint,    
+    DataRetirada date,
+    DataEntrega date,
+    ValorTotal float,
+    PRIMARY KEY (idAluguel),
+    FOREIGN KEY (renavan) REFERENCES Carro (renavan) 
+        ON UPDATE CASCADE 
+        ON DELETE CASCADE,
+    FOREIGN KEY (cod) REFERENCES Funcionario (cod) 
+        ON UPDATE CASCADE 
+        ON DELETE CASCADE,
+    FOREIGN KEY (cpf) REFERENCES Cliente (cpf) 
+        ON UPDATE CASCADE 
+        ON DELETE CASCADE
+); 
